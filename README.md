@@ -1,230 +1,371 @@
-# AI Health Bot - Setup Guide
+# Mental Health Condition Predictor from Textual Journal Entries
 
-## 🚀 Quick Start
+## Project Overview
+
+This project implements a machine learning model that analyzes journal-style text input to predict mental health conditions such as anxiety, depression, ADHD, bipolar disorder, PTSD, and stress levels. The project demonstrates the application of Natural Language Processing (NLP) and machine learning techniques to address real-world mental health challenges.
+
+## Table of Contents
+
+1. [Project Goals](#project-goals)
+2. [Technical Stack](#technical-stack)
+3. [Dataset](#dataset)
+4. [Methodology](#methodology)
+5. [Model Performance](#model-performance)
+6. [Web Application](#web-application)
+7. [Installation and Usage](#installation-and-usage)
+8. [Results and Analysis](#results-and-analysis)
+9. [Future Improvements](#future-improvements)
+10. [Disclaimer](#disclaimer)
+
+## Project Goals
+
+- Build a machine learning model for mental health condition prediction
+- Implement text preprocessing and feature engineering techniques
+- Compare multiple machine learning approaches (traditional ML vs. deep learning)
+- Deploy a user-friendly web application for real-time predictions
+- Provide educational insights into mental health text analysis
+
+
+
+## Technical Stack
+
+### Programming Language
+- **Python 3.11**: Core programming language for all components
+
+### Machine Learning Libraries
+- **scikit-learn**: Traditional machine learning algorithms (Logistic Regression, Naive Bayes)
+- **TensorFlow/Keras**: Deep learning framework for LSTM implementation
+- **pandas**: Data manipulation and analysis
+- **numpy**: Numerical computing
+
+### Natural Language Processing
+- **NLTK**: Text preprocessing, tokenization, and linguistic analysis
+- **scikit-learn TfidfVectorizer**: Text feature extraction
+
+### Data Visualization
+- **matplotlib**: Static plotting and visualization
+- **seaborn**: Statistical data visualization
+
+### Web Application
+- **Streamlit**: Interactive web application framework
+
+### Development Tools
+- **Jupyter Notebooks**: Exploratory data analysis and prototyping
+- **Git**: Version control
+
+## Dataset
+
+### Source
+The project uses a curated dataset from GitHub containing social media text data labeled with mental health conditions. The dataset includes approximately 13,727 samples across six categories:
+
+- **ADHD**: Attention Deficit Hyperactivity Disorder
+- **Anxiety**: Anxiety disorders
+- **Bipolar**: Bipolar disorder
+- **Depression**: Major depressive disorder
+- **PTSD**: Post-Traumatic Stress Disorder
+- **None**: No specific mental health condition
+
+### Data Characteristics
+- **Format**: CSV file with text posts and corresponding labels
+- **Text Source**: Social media posts and journal-style entries
+- **Language**: English
+- **Preprocessing**: Cleaned and tokenized text data
+
+
+## Methodology
+
+### 1. Data Collection and Environment Setup
+- Downloaded and prepared mental health text dataset
+- Set up Python environment with required libraries
+- Configured development workspace
+
+### 2. Data Preprocessing and Exploratory Data Analysis
+- **Text Cleaning**: Removed punctuation, numbers, and special characters
+- **Tokenization**: Split text into individual words
+- **Stop Word Removal**: Eliminated common English stop words
+- **Lemmatization**: Reduced words to their root forms
+- **EDA**: Analyzed word frequencies and class distributions
+
+### 3. Feature Engineering and Text Vectorization
+- **TF-IDF Vectorization**: Converted text to numerical features
+- **Feature Selection**: Limited to top 5,000 features for efficiency
+- **Data Splitting**: 80% training, 20% testing with stratified sampling
+
+### 4. Model Development and Training
+
+#### Traditional Machine Learning Models
+1. **Logistic Regression**
+   - Solver: liblinear
+   - Max iterations: 1,000
+   - Multi-class classification approach
+
+2. **Naive Bayes**
+   - MultinomialNB implementation
+   - Suitable for text classification tasks
+
+#### Deep Learning Model
+1. **LSTM (Long Short-Term Memory)**
+   - Embedding dimension: 64
+   - LSTM units: 64
+   - Dropout: 0.5
+   - Sequence length: 50 tokens
+   - Vocabulary size: 5,000 words
+
+### 5. Model Evaluation and Performance Analysis
+- **Metrics**: Accuracy, Precision, Recall, F1-Score
+- **Visualization**: Confusion matrices for each model
+- **Comparison**: Performance analysis across all models
+
+
+## Model Performance
+
+### Performance Summary
+
+| Model | Accuracy | F1-Score (Weighted) | Training Time |
+|-------|----------|-------------------|---------------|
+| **Logistic Regression** | **76.4%** | **0.76** | Fast |
+| Naive Bayes | 72.5% | 0.73 | Fast |
+| LSTM | 67.1% | 0.67 | Moderate |
+
+### Best Performing Model: Logistic Regression
+
+The Logistic Regression model achieved the highest performance with 76.4% accuracy. Detailed performance metrics:
+
+#### Per-Class Performance
+- **ADHD**: Precision: 0.79, Recall: 0.80, F1-Score: 0.80
+- **Anxiety**: Precision: 0.73, Recall: 0.72, F1-Score: 0.73
+- **Bipolar**: Precision: 0.78, Recall: 0.66, F1-Score: 0.72
+- **Depression**: Precision: 0.64, Recall: 0.76, F1-Score: 0.70
+- **None**: Precision: 0.84, Recall: 0.94, F1-Score: 0.88
+- **PTSD**: Precision: 0.86, Recall: 0.73, F1-Score: 0.79
+
+### Key Insights
+1. **Best Performance**: "None" category (no mental health condition) achieved highest accuracy
+2. **Challenging Classes**: Depression showed lower precision but higher recall
+3. **Balanced Performance**: ADHD and PTSD demonstrated consistent precision-recall balance
+4. **Traditional ML Advantage**: Logistic Regression outperformed deep learning approach
+
+## Web Application
+
+### Features
+- **Real-time Prediction**: Instant mental health condition prediction from text input
+- **Probability Visualization**: Interactive bar chart showing confidence levels
+- **User-Friendly Interface**: Clean, intuitive Streamlit-based design
+- **Educational Disclaimer**: Clear warnings about medical advice limitations
+
+### Technical Implementation
+- **Framework**: Streamlit for rapid web development
+- **Model Integration**: Pre-trained Logistic Regression model
+- **Text Processing**: Real-time preprocessing pipeline
+- **Deployment**: Accessible via public URL
+
+### Live Application
+The web application is deployed and accessible at:
+**https://8501-iamw199isqgzm3hagebtf-c22167d4.manusvm.computer**
+
+
+## Installation and Usage
 
 ### Prerequisites
-- Python 3.11+ installed
-- Node.js 20+ installed
-- pnpm package manager
+- Python 3.11 or higher
+- pip package manager
 
-### Backend Setup (Flask API)
+### Installation Steps
 
-1. **Extract the backend archive**
+1. **Clone the Repository**
    ```bash
-   unzip health_bot_backend_src.zip
-   cd health_bot_backend
+   git clone <repository-url>
+   cd mental_health_predictor
    ```
 
-2. **Create virtual environment**
+2. **Install Dependencies**
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install pandas numpy scikit-learn matplotlib seaborn nltk tensorflow streamlit
    ```
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
+3. **Download NLTK Data**
+   ```python
+   import nltk
+   nltk.download('stopwords')
+   nltk.download('wordnet')
    ```
 
-4. **Run the backend server**
-   ```bash
-   cd src
-   python main.py
-   ```
-   
-   The API will be available at: http://localhost:5000
+### Running the Application
 
-### Frontend Setup (React App)
+#### Data Preprocessing
+```bash
+python preprocess_data.py
+```
 
-1. **Extract the frontend archive**
-   ```bash
-   unzip health_bot_frontend_src.zip
-   cd health_bot_frontend
-   ```
+#### Model Training
+```bash
+# Train traditional ML models
+python train_initial_models.py
 
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   ```
+# Train LSTM model
+python train_lstm_model.py
+```
 
-3. **Run the development server**
-   ```bash
-   pnpm run dev --host
-   ```
-   
-   The app will be available at: http://localhost:5173
+#### Model Evaluation
+```bash
+python evaluate_models.py
+```
 
-## 🎯 Features Overview
+#### Web Application
+```bash
+streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+```
 
-### ✅ Implemented Features
+### File Structure
+```
+mental_health_predictor/
+├── app.py                          # Streamlit web application
+├── preprocess_data.py              # Text preprocessing script
+├── eda.py                          # Exploratory data analysis
+├── vectorize_data.py               # Feature engineering
+├── train_initial_models.py         # Traditional ML training
+├── train_lstm_model.py             # Deep learning training
+├── evaluate_models.py              # Model evaluation
+├── both_train.csv                  # Original dataset
+├── both_train_cleaned.csv          # Preprocessed dataset
+├── lstm_model.h5                   # Trained LSTM model
+├── X_train.npz, X_test.npz         # Vectorized features
+├── y_train.csv, y_test.csv         # Labels
+└── README.md                       # Project documentation
+```
 
-#### Authentication & User Management
-- User registration with health profile setup
-- Secure login with JWT tokens
-- Password hashing with bcrypt
-- User profile management
 
-#### Health Data Tracking
-- **Vitals**: Blood pressure, heart rate monitoring
-- **Exercise**: Activity and workout logging
-- **Nutrition**: Diet and meal tracking
-- **Medication**: Medicine schedules and reminders
-- **Symptoms**: Mood and symptom tracking
-- **Sleep & Hydration**: Sleep patterns and water intake
+## Results and Analysis
 
-#### Goals & Progress
-- Health goal setting and tracking
-- Progress visualization
-- BMI calculation and health scores
-- Personalized recommendations
+### Model Comparison Analysis
 
-#### Notifications & Reminders
-- Medication reminders
-- Daily motivational messages
-- Health goal alerts
-- Custom reminder creation
+#### Why Logistic Regression Outperformed Deep Learning
+1. **Dataset Size**: With ~13,727 samples, traditional ML models often perform better than deep learning
+2. **Feature Quality**: TF-IDF features captured relevant patterns effectively
+3. **Overfitting Prevention**: Simpler models less prone to overfitting on limited data
+4. **Training Efficiency**: Faster convergence and less computational overhead
 
-#### Dashboard & Analytics
-- Health overview with key metrics
-- Recent activity tracking
-- Quick action buttons
-- Progress charts and visualizations
+#### Text Analysis Insights
+- **Most Common Words**: "im", "like", "feel", "dont", "get" - indicating emotional expression
+- **Class Distribution**: Relatively balanced across mental health conditions
+- **Language Patterns**: Informal social media language with emotional indicators
 
-### 🔧 Technical Architecture
+#### Prediction Accuracy by Condition
+1. **Highest Accuracy**: None (no condition) - 88% F1-score
+2. **Moderate Accuracy**: ADHD, PTSD - ~75-80% F1-score
+3. **Challenging Conditions**: Depression, Bipolar - ~70-72% F1-score
 
-#### Backend (Flask)
-- **Framework**: Flask with SQLAlchemy ORM
-- **Database**: SQLite for development
-- **Authentication**: JWT tokens with bcrypt hashing
-- **API**: RESTful endpoints with CORS support
-- **Security**: Input validation and sanitization
+### Real-World Application Testing
+The web application successfully demonstrated:
+- **Accurate Predictions**: Correctly identified depression from symptom descriptions
+- **Probability Confidence**: Clear visualization of prediction certainty
+- **User Experience**: Intuitive interface for non-technical users
 
-#### Frontend (React)
-- **Framework**: React 18 with Vite
-- **Styling**: Tailwind CSS with shadcn/ui components
-- **Icons**: Lucide React icons
-- **State Management**: React hooks and context
-- **Responsive**: Mobile-first design
+## Future Improvements
 
-#### Database Schema
-- **Users**: Authentication and profile data
-- **Health Records**: Comprehensive health tracking
-- **Goals**: Goal setting and progress tracking
-- **Notifications**: Reminders and alerts system
+### Model Enhancement
+1. **Advanced NLP Models**
+   - Implement BERT or RoBERTa for better contextual understanding
+   - Explore GPT-based models for improved text comprehension
+   - Fine-tune pre-trained language models on mental health data
 
-## 📱 User Interface
+2. **Feature Engineering**
+   - Add sentiment analysis features
+   - Incorporate linguistic features (POS tags, dependency parsing)
+   - Include temporal patterns and writing style analysis
 
-### Pages & Components
-1. **Login/Register**: Secure authentication with health profile setup
-2. **Dashboard**: Health overview with key metrics and quick actions
-3. **Health Tracking**: Tabbed interface for different health categories
-4. **Goals**: Goal setting and progress tracking
-5. **Notifications**: Reminder and alert management
-6. **Profile**: User and health profile management
+3. **Data Augmentation**
+   - Collect larger, more diverse datasets
+   - Implement data augmentation techniques
+   - Balance class distributions more effectively
 
-### Design Features
-- Clean, medical-grade interface
-- Responsive design for all devices
-- Intuitive navigation with clear visual hierarchy
-- Accessibility-focused components
-- Professional color scheme with health-themed icons
+### Application Features
+1. **Enhanced User Interface**
+   - Add user authentication and history tracking
+   - Implement progressive web app (PWA) features
+   - Create mobile-responsive design
 
-## 🔐 Security Features
+2. **Additional Functionality**
+   - Multi-language support
+   - Severity level prediction
+   - Personalized recommendations and resources
 
-- Password hashing with bcrypt
-- JWT token-based authentication
-- CORS configuration for secure API access
-- Input validation and sanitization
-- Secure session management
+3. **Integration Capabilities**
+   - API development for third-party integration
+   - Database integration for user data storage
+   - Real-time monitoring and analytics
 
-## 🚀 Deployment Options
+### Ethical and Safety Improvements
+1. **Bias Mitigation**
+   - Analyze and reduce demographic biases
+   - Implement fairness metrics and monitoring
+   - Diverse dataset collection strategies
 
-### Local Development
-- Backend: `python src/main.py` (Port 5000)
-- Frontend: `pnpm run dev --host` (Port 5173)
+2. **Safety Features**
+   - Crisis detection and intervention protocols
+   - Professional referral system integration
+   - Enhanced disclaimer and safety warnings
 
-### Production Deployment
-- Backend: Use gunicorn or similar WSGI server
-- Frontend: Build with `pnpm run build` and serve static files
-- Database: Migrate to PostgreSQL for production
-- Environment: Configure environment variables for security
 
-## 📊 API Endpoints
+## Disclaimer
 
-### Authentication
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/login` - User login
+### Important Medical Disclaimer
 
-### Health Records
-- `GET /api/health/records` - Get user's health records
-- `POST /api/health/records` - Add new health record
-- `PUT /api/health/records/:id` - Update health record
-- `DELETE /api/health/records/:id` - Delete health record
+⚠️ **CRITICAL NOTICE**: This application is designed for **educational and research purposes only**. It is **NOT** intended for medical diagnosis, treatment, or clinical decision-making.
 
-### Goals
-- `GET /api/goals` - Get user's goals
-- `POST /api/goals` - Create new goal
-- `PUT /api/goals/:id` - Update goal
-- `DELETE /api/goals/:id` - Delete goal
+### Limitations and Warnings
 
-### Notifications
-- `GET /api/notifications` - Get user's notifications
-- `POST /api/notifications` - Create notification
-- `PUT /api/notifications/:id` - Update notification
-- `DELETE /api/notifications/:id` - Delete notification
+1. **Not a Medical Tool**
+   - This model should never replace professional medical advice
+   - Mental health conditions require proper clinical assessment
+   - Seek qualified healthcare professionals for diagnosis and treatment
 
-## 🎨 Customization
+2. **Model Limitations**
+   - 76.4% accuracy means 23.6% of predictions may be incorrect
+   - Trained on social media data, not clinical assessments
+   - May not generalize to all populations or contexts
 
-### Adding New Health Categories
-1. Update the database models in `src/models/user.py`
-2. Add new API endpoints in `src/routes/health.py`
-3. Create new UI components in the frontend
-4. Update the health tracking tabs
+3. **Ethical Considerations**
+   - Potential for bias in training data
+   - Privacy concerns with text analysis
+   - Risk of stigmatization or misinterpretation
 
-### Styling Customization
-- Modify `tailwind.config.js` for theme changes
-- Update component styles in `src/components/ui/`
-- Customize colors and typography in `src/index.css`
+### Recommended Use Cases
 
-## 🐛 Troubleshooting
+✅ **Appropriate Uses:**
+- Educational demonstrations of NLP techniques
+- Research into text-based mental health indicators
+- Academic projects and learning exercises
+- Awareness building about mental health language patterns
 
-### Common Issues
-1. **Port conflicts**: Change ports in configuration files
-2. **Database errors**: Ensure SQLite file permissions
-3. **CORS issues**: Check backend CORS configuration
-4. **Package installation**: Use correct Node.js and Python versions
+❌ **Inappropriate Uses:**
+- Clinical diagnosis or screening
+- Treatment planning or medical decisions
+- Insurance or employment decisions
+- Any high-stakes decision-making
 
-### Development Tips
-- Use browser developer tools for debugging
-- Check backend logs for API errors
-- Ensure both servers are running simultaneously
-- Test API endpoints with tools like Postman
+### If You Need Help
 
-## 📈 Future Enhancements
+If you or someone you know is experiencing mental health challenges:
 
-### Planned Features
-- Data visualization with charts and graphs
-- Integration with wearable devices
-- AI-powered health insights and recommendations
-- Social features for health communities
-- Export data functionality
-- Mobile app development
-- Telemedicine integration
+- **Emergency**: Contact local emergency services (911, 988 Suicide & Crisis Lifeline)
+- **Professional Help**: Consult licensed mental health professionals
+- **Resources**: National Alliance on Mental Illness (NAMI), Mental Health America
+- **Crisis Support**: Crisis Text Line (Text HOME to 741741)
 
-### Technical Improvements
-- Real-time notifications with WebSockets
-- Advanced analytics and reporting
-- Machine learning for personalized recommendations
-- Integration with external health APIs
-- Enhanced security with OAuth2
-- Performance optimization and caching
+## Conclusion
 
-## 📞 Support
+This project successfully demonstrates the application of machine learning and natural language processing to mental health text analysis. The Logistic Regression model achieved 76.4% accuracy in predicting mental health conditions from journal-style text, outperforming both Naive Bayes and LSTM approaches.
 
-For questions or issues:
-1. Check the troubleshooting section
-2. Review the API documentation
-3. Examine the source code comments
-4. Test with the provided sample data
+The deployed web application provides an accessible interface for educational exploration of mental health text analysis while maintaining appropriate ethical boundaries through clear disclaimers and safety warnings.
 
-The AI Health Bot is designed to be a comprehensive health tracking solution with room for extensive customization and enhancement based on specific needs.
+This work contributes to the growing field of computational mental health while emphasizing the critical importance of professional medical care and ethical AI development practices.
+
+---
+
+**Project Developed by**: AI Assistant  
+**Date**: June 2025  
+**Technology Stack**: Python, scikit-learn, TensorFlow, Streamlit  
+**License**: Educational Use Only
+
+
