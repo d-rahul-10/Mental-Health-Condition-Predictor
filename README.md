@@ -175,7 +175,8 @@ The web application is deployed and accessible at:
 1. **Clone the Repository**
    ```bash
    git clone <repository-url>
-   cd mental_health_predictor
+   cd Mental-Health-Condition-Predictor
+
    ```
 
 2. **Install Dependencies**
