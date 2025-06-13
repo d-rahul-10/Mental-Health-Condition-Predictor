@@ -174,7 +174,7 @@ The web application is deployed and accessible at:
 
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/d-rahul-10/Mental-Health-Condition-Predictor.git
    cd Mental-Health-Condition-Predictor
 
    ```
