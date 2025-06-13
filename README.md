@@ -363,7 +363,7 @@ This work contributes to the growing field of computational mental health while 
 
 ---
 
-**Project Developed by**: AI Assistant  
+**Project Developed by**: D.Rahul | AIML Student 
 **Date**: June 2025  
 **Technology Stack**: Python, scikit-learn, TensorFlow, Streamlit  
 **License**: Educational Use Only
